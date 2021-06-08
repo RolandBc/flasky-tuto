@@ -1,0 +1,2 @@
+flask-moment=0.11.0
+flask-wtf=0.15.1
