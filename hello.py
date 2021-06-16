@@ -30,8 +30,31 @@ music = client.batch_get_item(
         },
     },
 )
+
+user = client.batch_get_item(
+    RequestItems={
+        'TrainUser': {
+            'Keys': [
+                {
+                    'id': {
+                        'N': '3103',
+                    },
+                    'username': {
+                        'S': 'roland@datascientest.com',
+                    },
+                }
+            ],
+            'ProjectionExpression': 'username',
+        },
+    },
+)
+
 tables = client.list_tables()
 print('--------- -- - -CLIENT DB')
+print('user')
+
+print(user)
+print('music')
 print(music)
 print(tables)
 
