@@ -1,17 +1,24 @@
+from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
 
-class Role():
+class Role(db.Model):
     __tablename__ = 'roles'
-    id = 1
-    name = 'rup'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), unique=True)
 
     def __repr__(self):
         return '<Role %r>' % self.name
+    
+    users = db.relationship('User', backref='role')
 
-class User():
+class User(db.Model):
     __tablename__ = 'users'
-    id = 1
-    username = 'rolls'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(64), index=True)
 
     def __repr__(self) -> str:
         return '<User %r>' % self.username
+
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+
+
